@@ -1,19 +1,20 @@
+// app/profile/page.tsx
 "use client";
 
+import { useState, useEffect } from "react";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Button } from "@/app/components/ui/Button";
-import { Card } from "@/app/components/ui/Card";
-import { deleteUser, updateProfile } from "firebase/auth";
+import { Button } from "@/components/ui/button";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { updateProfile } from "firebase/auth";
+import { ArrowLeft } from "lucide-react";
+import { ProfileCard } from "@/components/ProfileCard";
+import { EditProfileCard } from "@/components/EditProfileCard";
 
 export default function ProfilePage() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const [displayName, setDisplayName] = useState(user?.displayName || "");
-  const [photoURL, setPhotoURL] = useState(user?.photoURL || "");
-  const [isEditing, setIsEditing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [previewPhoto, setPreviewPhoto] = useState<string | null>(null);
 
@@ -23,105 +24,65 @@ export default function ProfilePage() {
     }
   }, [user, loading, router]);
 
-  const handleDeleteAccount = async () => {
-    if (user) {
-      try {
-        await deleteUser(user);
-        router.push("/signup");
-      } catch (error) {
-        console.error("Error deleting user:", error);
-      }
-    }
-  };
-
   const handleUpdateProfile = async () => {
     if (user) {
       try {
-        await updateProfile(user, { displayName, photoURL });
-        setIsEditing(false);
+        await updateProfile(user, {
+          displayName,
+          photoURL: previewPhoto || user.photoURL,
+        });
+        // Rafraîchir la page après la mise à jour
+        window.location.reload();
       } catch (error) {
-        if (error instanceof Error && (error as any).code === "auth/invalid-profile-attribute") {
-          setErrorMessage("Le fichier est trop lourd. Veuillez choisir un fichier plus léger.");
-        } else {
-          console.error("Error updating profile:", error);
-        }
+        setErrorMessage("Erreur lors de la mise à jour du profil.");
+        console.error("Error updating profile:", error);
       }
     }
   };
 
-  const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const maxSize = 2 * 1024 * 1024; // 2MB
-
-      if (file.size > maxSize) {
-        setErrorMessage("Le fichier est trop lourd. Veuillez choisir un fichier de moins de 2MB.");
-        return;
-      }
-
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewPhoto(reader.result as string);
-        setPhotoURL(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  if (loading) {
-    return <div className="flex items-center justify-center h-screen text-white">Chargement...</div>;
-  }
-
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen text-white">
-      <Link href="/" className="absolute top-4 left-4 text-white">
-        ← Retour
-      </Link>
-      <h1 className="text-3xl mb-8">Profil</h1>
-      {user && (
-        <Card className="text-center">
-          <div className="mb-4">
-            <label className="block mb-2">Nom d'affichage:</label>
-            {isEditing ? (
-              <input
-                type="text"
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                className="px-4 py-2 rounded bg-zinc-700 text-white"
-              />
-            ) : (
-              <p>{user.displayName || "N/A"}</p>
-            )}
-          </div>
-          <p className="mb-4">Email: {user.email}</p>
-          {isEditing ? (
-            <Button variant="primary" onClick={handleUpdateProfile}>
-              Enregistrer
-            </Button>
-          ) : (
-            <Button variant="secondary" onClick={() => setIsEditing(true)}>
-              Modifier le profil
-            </Button>
-          )}
-          <Button variant="secondary" onClick={handleDeleteAccount} className="mt-4">
-            Supprimer le compte
-          </Button>
-        </Card>
-      )}
-      {isEditing && (
-        <Card className="text-center mt-8">
-          <div className="mb-4">
-            <label className="block mb-2">Modifier la photo de profil:</label>
-            <input type="file" onChange={handlePhotoChange} className="px-4 py-2 rounded bg-zinc-700 text-white" />
-          </div>
-          {previewPhoto && (
-            <div className="mb-4">
-              <img src={previewPhoto} alt="Prévisualisation de la photo de profil" className="rounded-full w-24 h-24" />
-            </div>
-          )}
-          {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
-        </Card>
-      )}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white p-4">
+      <div className="absolute top-4 left-4 flex items-center">
+        <Button
+          className="bg-transparent hover:bg-zinc-700 p-2 rounded-full flex items-center"
+          onClick={() => router.back()}
+        >
+          <ArrowLeft className="w-6 h-6 text-white" />
+          <span className="ml-2 text-white">Retour</span>
+        </Button>
+      </div>
+      <ProfileCard
+        displayName={user?.displayName || "Utilisateur"}
+        email={user?.email || ""}
+        photoURL={previewPhoto || user?.photoURL || null}
+      />
+      <Accordion type="single" collapsible className="w-full max-w-md">
+        <AccordionItem value="item-1">
+          <AccordionTrigger className="bg-zinc-700 hover:bg-zinc-800 text-white p-2 rounded">
+            Modifier le profil
+          </AccordionTrigger>
+          <AccordionContent className="bg-zinc-800 p-4 rounded-lg mt-2">
+            <EditProfileCard
+              displayName={displayName}
+              setDisplayName={setDisplayName}
+              handlePhotoChange={handlePhotoChange}
+              handleUpdateProfile={handleUpdateProfile}
+              errorMessage={errorMessage}
+            />
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 }

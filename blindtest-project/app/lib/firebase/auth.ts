@@ -1,20 +1,21 @@
-// lib/firebase/auth.ts
-import { auth } from "./client";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+// app/lib/firebase/auth.ts
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 
-const provider = new GoogleAuthProvider();
+const auth = getAuth();
 
 export const signInWithGoogle = async () => {
+  const provider = new GoogleAuthProvider();
   try {
-    const result = await signInWithPopup(auth, provider);
-    // result.user contient l’utilisateur
-    return result.user;
+    await signInWithPopup(auth, provider);
   } catch (error) {
-    console.error("Google sign-in error:", error);
-    throw error;
+    console.error("Error signing in with Google: ", error);
   }
 };
 
 export const logout = async () => {
-  await signOut(auth);
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("Error signing out: ", error);
+  }
 };

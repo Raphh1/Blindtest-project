@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/providers/AuthProvider";
 import Link from "next/link";
 import { useEffect } from "react";
-import { Button } from "@/app/components/ui/Button";
+import { Button } from "@/components/ui/button";
 
 
 export default function LoginPage() {

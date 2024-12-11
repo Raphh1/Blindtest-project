@@ -2,10 +2,11 @@
 "use client";
 
 import { useAuth } from "./providers/AuthProvider";
-import { Navbar } from "./components/ui/Navbar";
-import { HomeModeSelector } from "./components/HomeModeSelector";
+import { Navbar } from "@/components/Navbar";
+import { GameModes } from "@/components/GameModes";
 
-export default function HomePage() {
+export default function HomePage()
+ {
   const { loading } = useAuth();
 
   if (loading) {
@@ -20,7 +21,7 @@ export default function HomePage() {
     <div>
       <Navbar />
       <div className="flex items-center justify-center h-screen">
-        <HomeModeSelector />
+        <GameModes />
       </div>
     </div>
   );
