@@ -13,11 +13,18 @@ export function Navbar() {
       <div className="text-xl font-semibold">
         <Link href="/">Blindtest</Link>
       </div>
-      <div>
+      <div className="flex items-center gap-4">
         {loading ? (
           <span>Chargement...</span>
         ) : user ? (
-          <div className="flex items-center gap-4">
+          <>
+            <Link href="/profile">
+              <img
+                src={user.photoURL || "/default-profile.png"}
+                alt="Photo de profil"
+                className="rounded-full w-8 h-8 hover:ring-2 hover:ring-purple-600"
+              />
+            </Link>
             <span>Bienvenue, {user.displayName || user.email}</span>
             <button
               onClick={logout}
@@ -25,7 +32,7 @@ export function Navbar() {
             >
               Se déconnecter
             </button>
-          </div>
+          </>
         ) : (
           <Link
             href="/login"
