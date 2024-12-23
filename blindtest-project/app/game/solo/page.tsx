@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export default function SoloPage() {
+  const router = useRouter();
   const { user } = useAuth();
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -35,13 +37,25 @@ export default function SoloPage() {
   };
 
   const onSubmit = (data: FormData) => {
-    // Combine user data with form data
-    const allPlayers = {
-      player1: user?.displayName || "",
-      ...data
-    };
-    console.log(allPlayers);
-    // Handle form submission
+    if (!selectedGenre) {
+      alert("Veuillez sélectionner un style musical");
+      return;
+    }
+
+    // Création du tableau des joueurs
+    const players = [
+      user?.displayName || "Joueur 1",
+      data.player2,
+      data.player3,
+      data.player4
+    ];
+
+    // Redirection vers la page de jeu avec les paramètres
+    const searchParams = new URLSearchParams();
+    searchParams.set("players", JSON.stringify(players));
+    searchParams.set("genre", selectedGenre);
+
+    router.push(`/game/solo/play?${searchParams.toString()}`);
   };
 
   return (
@@ -116,57 +130,27 @@ export default function SoloPage() {
                   </CardContent>
                 </Card>
 
-                {/* Section des genres musicaux - reste inchangée */}
+                {/* Section des genres musicaux */}
                 <Card className="bg-zinc-800 border-violet-500/20">
                   <CardHeader>
                     <CardTitle className="text-violet-300 text-lg">Style musical</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
-                      <Button
-                        type="button"
-                        className={`${
-                          selectedGenre === "rap"
-                            ? "bg-violet-600"
-                            : "bg-zinc-700 hover:bg-violet-600/50"
-                        }`}
-                        onClick={() => handleGenreSelect("rap")}
-                      >
-                        Rap
-                      </Button>
-                      <Button
-                        type="button"
-                        className={`${
-                          selectedGenre === "rnb"
-                            ? "bg-violet-600"
-                            : "bg-zinc-700 hover:bg-violet-600/50"
-                        }`}
-                        onClick={() => handleGenreSelect("rnb")}
-                      >
-                        R&B
-                      </Button>
-                      <Button
-                        type="button"
-                        className={`${
-                          selectedGenre === "pop"
-                            ? "bg-violet-600"
-                            : "bg-zinc-700 hover:bg-violet-600/50"
-                        }`}
-                        onClick={() => handleGenreSelect("pop")}
-                      >
-                        Pop
-                      </Button>
-                      <Button
-                        type="button"
-                        className={`${
-                          selectedGenre === "jazz"
-                            ? "bg-violet-600"
-                            : "bg-zinc-700 hover:bg-violet-600/50"
-                        }`}
-                        onClick={() => handleGenreSelect("jazz")}
-                      >
-                        Jazz
-                      </Button>
+                      {["rap", "rnb", "pop", "jazz"].map((genre) => (
+                        <Button
+                          key={genre}
+                          type="button"
+                          className={`capitalize ${
+                            selectedGenre === genre
+                              ? "bg-violet-600"
+                              : "bg-zinc-700 hover:bg-violet-600/50"
+                          }`}
+                          onClick={() => handleGenreSelect(genre)}
+                        >
+                          {genre}
+                        </Button>
+                      ))}
                     </div>
                   </CardContent>
                 </Card>
