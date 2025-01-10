@@ -18,14 +18,11 @@ export function Navbar() {
 
   return (
     <nav className="w-full flex items-center justify-between p-4 bg-zinc-900 text-zinc-200 border-b border-zinc-700">
-      <div className="text-xl font-semibold">
-        <Link href="/">Blindtest</Link>
-      </div>
-      <div className="flex-1 text-center">
+      <div className="flex-1 text-center pr-8"> 
         {loading ? (
           <span>Chargement...</span>
         ) : user ? (
-          <span>Bienvenue, {user.displayName || user.email}</span>
+          <span className="pl-24">Bienvenue, {user.displayName || user.email}</span>
         ) : (
           <Link href="/login" className="bg-violet-600 hover:bg-violet-700 text-white px-3 py-1 rounded">
             Se connecter
