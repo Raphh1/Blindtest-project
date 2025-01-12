@@ -55,11 +55,11 @@ export default function PlaySoloGame() {
 
     initGame();
   }, [searchParams]);
-
   useEffect(() => {
     if (gameState.tracks[gameState.currentTrackIndex]) {
       console.log("Dev track name:", gameState.tracks[gameState.currentTrackIndex].title);
     }
+    setMessage("");
   }, [gameState.currentTrackIndex, gameState.tracks]);
 
   const handleCheck = (e: React.KeyboardEvent<HTMLInputElement>) => {
