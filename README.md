@@ -1,6 +1,13 @@
 
 ```
 Blindtest-project
+├─ .idea
+│  ├─ Blindtest-project.iml
+│  ├─ inspectionProfiles
+│  │  └─ Project_Default.xml
+│  ├─ modules.xml
+│  ├─ vcs.xml
+│  └─ workspace.xml
 ├─ blindtest-project
 │  ├─ .env
 │  ├─ .eslintrc.json
@@ -63,15 +70,10 @@ Blindtest-project
 │  │  ├─ react-loadable-manifest.json
 │  │  ├─ server
 │  │  │  ├─ app
-│  │  │  │  ├─ api
-│  │  │  │  │  └─ spotify
-│  │  │  │  │     ├─ route.js
-│  │  │  │  │     └─ route_client-reference-manifest.js
 │  │  │  │  ├─ favicon.ico
 │  │  │  │  │  └─ route.js
-│  │  │  │  └─ test
-│  │  │  │     ├─ page.js
-│  │  │  │     └─ page_client-reference-manifest.js
+│  │  │  │  ├─ page.js
+│  │  │  │  └─ page_client-reference-manifest.js
 │  │  │  ├─ app-paths-manifest.json
 │  │  │  ├─ interception-route-rewrite-manifest.js
 │  │  │  ├─ middleware-build-manifest.js
@@ -84,30 +86,27 @@ Blindtest-project
 │  │  │  ├─ server-reference-manifest.json
 │  │  │  ├─ vendor-chunks
 │  │  │  │  ├─ @firebase.js
+│  │  │  │  ├─ @grpc.js
+│  │  │  │  ├─ @protobufjs.js
+│  │  │  │  ├─ @radix-ui.js
 │  │  │  │  ├─ @swc.js
-│  │  │  │  ├─ asynckit.js
-│  │  │  │  ├─ axios.js
-│  │  │  │  ├─ combined-stream.js
-│  │  │  │  ├─ delayed-stream.js
+│  │  │  │  ├─ class-variance-authority.js
+│  │  │  │  ├─ clsx.js
 │  │  │  │  ├─ firebase.js
-│  │  │  │  ├─ follow-redirects.js
-│  │  │  │  ├─ form-data.js
 │  │  │  │  ├─ idb.js
-│  │  │  │  ├─ mime-db.js
-│  │  │  │  ├─ mime-types.js
+│  │  │  │  ├─ lodash.camelcase.js
+│  │  │  │  ├─ long.js
+│  │  │  │  ├─ lucide-react.js
 │  │  │  │  ├─ next.js
-│  │  │  │  ├─ proxy-from-env.js
+│  │  │  │  ├─ protobufjs.js
+│  │  │  │  ├─ tailwind-merge.js
 │  │  │  │  └─ tslib.js
 │  │  │  └─ webpack-runtime.js
 │  │  ├─ static
 │  │  │  ├─ chunks
 │  │  │  │  ├─ app
-│  │  │  │  │  ├─ api
-│  │  │  │  │  │  └─ spotify
-│  │  │  │  │  │     └─ route.js
 │  │  │  │  │  ├─ layout.js
-│  │  │  │  │  └─ test
-│  │  │  │  │     └─ page.js
+│  │  │  │  │  └─ page.js
 │  │  │  │  ├─ app-pages-internals.js
 │  │  │  │  ├─ main-app.js
 │  │  │  │  ├─ polyfills.js
@@ -128,21 +127,15 @@ Blindtest-project
 │  │  │  │  └─ df0a9ae256c0569c-s.woff2
 │  │  │  └─ webpack
 │  │  │     ├─ 633457081244afec._.hot-update.json
-│  │  │     ├─ 652dfffd429e80f1.webpack.hot-update.json
 │  │  │     ├─ app
-│  │  │     │  └─ layout.652dfffd429e80f1.hot-update.js
-│  │  │     ├─ e749d1d90ca10f26.webpack.hot-update.json
-│  │  │     ├─ webpack.652dfffd429e80f1.hot-update.js
-│  │  │     └─ webpack.e749d1d90ca10f26.hot-update.js
+│  │  │     │  └─ layout.df92a72d49bb4720.hot-update.js
+│  │  │     ├─ df92a72d49bb4720.webpack.hot-update.json
+│  │  │     └─ webpack.df92a72d49bb4720.hot-update.js
 │  │  ├─ trace
 │  │  └─ types
 │  │     ├─ app
-│  │     │  ├─ api
-│  │     │  │  └─ spotify
-│  │     │  │     └─ route.ts
 │  │     │  ├─ layout.ts
-│  │     │  └─ test
-│  │     │     └─ page.ts
+│  │     │  └─ page.ts
 │  │     ├─ cache-life.d.ts
 │  │     └─ package.json
 │  ├─ app
@@ -151,43 +144,43 @@ Blindtest-project
 │  │  │  │  └─ page.tsx
 │  │  │  └─ signup
 │  │  │     └─ page.tsx
-│  │  ├─ api
-│  │  │  ├─ spotify
-│  │  │  │  └─ route.ts
-│  │  │  └─ test
-│  │  │     └─ route.ts
 │  │  ├─ favicon.ico
 │  │  ├─ fonts
 │  │  │  ├─ GeistMonoVF.woff
 │  │  │  └─ GeistVF.woff
+│  │  ├─ game
+│  │  │  ├─ multi
+│  │  │  │  └─ page.tsx
+│  │  │  └─ solo
+│  │  │     ├─ page.tsx
+│  │  │     └─ play
+│  │  │        └─ page.tsx
 │  │  ├─ globals.css
 │  │  ├─ layout.tsx
 │  │  ├─ lib
 │  │  │  ├─ api.ts
-│  │  │  ├─ firebase
-│  │  │  │  ├─ auth.ts
-│  │  │  │  ├─ client.ts
-│  │  │  │  └─ firebase.config.ts
-│  │  │  └─ spotify.ts
+│  │  │  └─ firebase
+│  │  │     ├─ auth.ts
+│  │  │     ├─ client.ts
+│  │  │     └─ firebase.config.ts
 │  │  ├─ page.tsx
 │  │  ├─ profile
 │  │  │  └─ page.tsx
-│  │  ├─ providers
-│  │  │  └─ AuthProvider.tsx
-│  │  ├─ test
-│  │  │  └─ page.tsx
-│  │  ├─ types
-│  │  └─ utils
+│  │  └─ providers
+│  │     └─ AuthProvider.tsx
 │  ├─ components
 │  │  ├─ EditProfileCard.tsx
 │  │  ├─ GameModes.tsx
 │  │  ├─ Navbar.tsx
 │  │  ├─ ProfileCard.tsx
+│  │  ├─ TimerButton.tsx
 │  │  └─ ui
 │  │     ├─ accordion.tsx
 │  │     ├─ button.tsx
 │  │     ├─ card.tsx
-│  │     └─ input.tsx
+│  │     ├─ form.tsx
+│  │     ├─ input.tsx
+│  │     └─ label.tsx
 │  ├─ components.json
 │  ├─ lib
 │  │  └─ utils.ts
