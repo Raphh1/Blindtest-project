@@ -1,6 +1,3 @@
-// components/GameModes.tsx
-"use client";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Users, User as UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/providers/AuthProvider";
+import { io, Socket } from "socket.io-client";
+
+let socket: Socket | null = null;
+
+interface Game {
+  code: string;
+  players: { id: string; name: string }[];
+  isOpen: boolean;
+  host: string;
+}
 
 export function GameModes() {
   const [gameCode, setGameCode] = useState("");
@@ -24,9 +31,16 @@ export function GameModes() {
       router.push("/game/solo");
     } else {
       if (code) {
-        router.push(`/game/multi?code=${code}`);
+        router.push(`/game/multi/${code}`);
       } else {
-        router.push("/game/multi");
+        socket = io("http://87.106.162.205:5002");
+        socket.emit("createGame", { playerName: user.displayName , uid: user.uid}, (response: { success: boolean; game?: Game; error?: string }) => {
+          if (response.success && response.game) {
+            router.push(`/game/multi/${response.game.code}`);
+          } else {
+            toast.error(response.error || "Erreur lors de la création de la partie");
+          }
+        });
       }
     }
   };
