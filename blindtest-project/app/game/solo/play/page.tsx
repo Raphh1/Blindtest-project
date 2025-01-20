@@ -84,7 +84,7 @@ export default function PlaySoloGame() {
   const handleNextTrack = () => {
     if (gameState.currentTrackIndex < gameState.tracks.length - 1) {
       setGameState((prev) => ({ ...prev, currentTrackIndex: prev.currentTrackIndex + 1 }));
-      setMessage(""); // Reset message for the next track
+      setMessage(""); 
     }
   };
 
@@ -104,7 +104,7 @@ export default function PlaySoloGame() {
           onTimeUp={handleTimeUp} 
           answer={currentTrack.title} 
           onNextTrack={handleNextTrack}
-          currentTrackIndex={gameState.currentTrackIndex} // Ajout de l'index
+          currentTrackIndex={gameState.currentTrackIndex} 
         />
         <Input
           value={guess}

@@ -1,4 +1,3 @@
-// app/profile/page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -31,7 +30,7 @@ export default function ProfilePage() {
           displayName,
           photoURL: previewPhoto || user.photoURL,
         });
-        // Rafraîchir la page après la mise à jour
+ 
         window.location.reload();
       } catch (error) {
         setErrorMessage("Erreur lors de la mise à jour du profil.");

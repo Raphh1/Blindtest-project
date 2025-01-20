@@ -7,7 +7,7 @@ interface TimerButtonProps {
   onTimeUp: () => void;
   answer: string;
   onNextTrack: () => void;
-  currentTrackIndex: number; // Ajout de l'index de la piste courante
+  currentTrackIndex: number; 
 }
 
 const TimerButton: React.FC<TimerButtonProps> = ({ 
@@ -20,7 +20,6 @@ const TimerButton: React.FC<TimerButtonProps> = ({
   const [timeLeft, setTimeLeft] = useState(initialTime);
   const [showModal, setShowModal] = useState(false);
 
-  // Réinitialiser le timer quand la piste change
   useEffect(() => {
     setTimeLeft(initialTime);
     setShowModal(false);
@@ -44,7 +43,7 @@ const TimerButton: React.FC<TimerButtonProps> = ({
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setTimeLeft(initialTime); // Réinitialiser le timer
+    setTimeLeft(initialTime); 
     onNextTrack();
   };
 

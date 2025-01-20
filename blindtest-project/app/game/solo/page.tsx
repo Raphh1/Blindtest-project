@@ -42,7 +42,6 @@ export default function SoloPage() {
       return;
     }
 
-    // Création du tableau des joueurs
     const players = [
       user?.displayName || "Joueur 1",
       data.player2,
@@ -50,7 +49,6 @@ export default function SoloPage() {
       data.player4
     ];
 
-    // Redirection vers la page de jeu avec les paramètres
     const searchParams = new URLSearchParams();
     searchParams.set("players", JSON.stringify(players));
     searchParams.set("genre", selectedGenre);
@@ -71,13 +69,11 @@ export default function SoloPage() {
           <CardContent>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                {/* Section des pseudos */}
                 <Card className="bg-zinc-800 border-violet-500/20">
                   <CardHeader>
                     <CardTitle className="text-violet-300 text-lg">Pseudos des joueurs</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {/* Joueur connecté (non modifiable) */}
                     <div className="space-y-2">
                       <FormLabel className="text-zinc-300">Joueur 1 (Vous)</FormLabel>
                       <Input 
@@ -87,7 +83,6 @@ export default function SoloPage() {
                       />
                     </div>
 
-                    {/* Autres joueurs */}
                     <FormField
                       control={form.control}
                       name="player2"
@@ -130,7 +125,6 @@ export default function SoloPage() {
                   </CardContent>
                 </Card>
 
-                {/* Section des genres musicaux */}
                 <Card className="bg-zinc-800 border-violet-500/20">
                   <CardHeader>
                     <CardTitle className="text-violet-300 text-lg">Style musical</CardTitle>
