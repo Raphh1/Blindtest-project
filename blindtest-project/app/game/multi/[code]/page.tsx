@@ -29,8 +29,13 @@ export default function MultiGamePage() {
     const code = params.code as string;
     socket = io("http://87.106.162.205:5002");
 
+    socket.emit('authenticate', { uid: user.uid });
+
     if (code === "new") {
-      socket.emit("createGame", { playerName: user.displayName }, (response: { success: boolean; game?: GameData; error?: string }) => {
+      socket.emit("createGame", { 
+        playerName: user.displayName, 
+        uid: user.uid 
+      }, (response: { success: boolean; game?: GameData; error?: string }) => {
         if (response.success && response.game) {
           setGame(response.game);
           router.replace(`/game/multi/${response.game.code}`);
@@ -39,7 +44,11 @@ export default function MultiGamePage() {
         }
       });
     } else {
-      socket.emit("joinGame", { code, playerName: user.displayName }, (response: { success: boolean; game?: GameData; error?: string }) => {
+      socket.emit("joinGame", { 
+        code, 
+        playerName: user.displayName,
+        uid: user.uid 
+      }, (response: { success: boolean; game?: GameData; error?: string }) => {
         if (response.success && response.game) {
           setGame(response.game);
         } else {
@@ -117,7 +126,7 @@ export default function MultiGamePage() {
         <div className="bg-zinc-800 rounded-lg p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4">Joueurs connectés</h2>
           <ul className="space-y-2">
-            {game.players.map((player) => (
+          {game.players.map((player) => (
               <li 
                 key={player.id}
                 className="flex items-center gap-2 text-zinc-300"
