@@ -1,5 +1,6 @@
 // components/ProfileCard.tsx
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Image from 'next/image';
 
 interface ProfileCardProps {
   displayName: string;
@@ -15,7 +16,7 @@ export function ProfileCard({ displayName, email, photoURL }: ProfileCardProps) 
         <CardDescription className="text-zinc-400">Informations du profil</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center">
-        <img
+        <Image
           src={photoURL || "/default-profile.png"}
           alt="Photo de profil"
           className="w-24 h-24 rounded-full mb-4"
