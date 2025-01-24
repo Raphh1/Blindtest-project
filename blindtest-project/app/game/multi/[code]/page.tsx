@@ -93,7 +93,7 @@ export default function MultiGamePage() {
         <div className="max-w-xl mx-auto text-center">
           <h1 className="text-2xl font-bold text-red-500 mb-4">{error}</h1>
           <Button onClick={() => router.push("/")} className="bg-violet-600 hover:bg-violet-700">
-            Retour à l'accueil
+            Retour à l&apos;accueil
           </Button>
         </div>
       </div>
@@ -120,8 +120,8 @@ export default function MultiGamePage() {
         )}
         <div className="bg-zinc-800 rounded-lg p-6 mb-6">
           <h1 className="text-2xl font-bold mb-2">Code de la partie: {game.code}</h1>
-          <p className="text-zinc-400">Partagez ce code avec vos amis pour qu'ils puissent rejoindre la partie</p>
-        </div>
+          <p className="text-zinc-400">Partagez ce code avec vos amis pour qu&apos;ils puissent rejoindre la partie</p>
+          </div>
 
         <div className="bg-zinc-800 rounded-lg p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4">Joueurs connectés</h2>
