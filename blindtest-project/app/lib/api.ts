@@ -7,3 +7,11 @@ export async function fetchPlaylistByGenre(genre: string) {
   }
   return response.json();
 }
+
+export async function fetchPlaylistByGameCode(gameCode: string) {
+  const response = await fetch(`${API_BASE_URL}/playlist/${gameCode}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch playlist');
+  }
+  return response.json();
+}

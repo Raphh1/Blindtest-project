@@ -35,7 +35,7 @@ export default function SignupPage() {
       </Link>
       {user && (
         <div className="flex flex-col items-center">
-          <img src={user.photoURL || "/default-profile.png"} alt="Photo de profil" className="w-24 h-24 rounded-full mb-4" />
+          <Image  src={user.photoURL || "/default-profile.png"} alt="Photo de profil" className="w-24 h-24 rounded-full mb-4" />
           <p className="text-white">{user.displayName || "Utilisateur"}</p>
         </div>
       )}

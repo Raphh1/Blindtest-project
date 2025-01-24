@@ -7,44 +7,52 @@ interface TimerButtonProps {
   onTimeUp: () => void;
   answer: string;
   onNextTrack: () => void;
-  currentTrackIndex: number; 
+  currentTrackIndex: number;
+  isHost: boolean; // Ajout d'une prop pour vérifier si c'est l'hôte
 }
 
-const TimerButton: React.FC<TimerButtonProps> = ({ 
-  initialTime = 90, 
-  onTimeUp, 
-  answer, 
+const TimerButton: React.FC<TimerButtonProps> = ({
+  initialTime,
+  onTimeUp,
+  answer,
   onNextTrack,
-  currentTrackIndex 
+  currentTrackIndex,
+  isHost
 }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
   const [showModal, setShowModal] = useState(false);
+  const [timerActive, setTimerActive] = useState(true);
 
   useEffect(() => {
     setTimeLeft(initialTime);
     setShowModal(false);
+    setTimerActive(true);
   }, [initialTime, currentTrackIndex]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
+    if (!timerActive) return;
 
-    if (timeLeft === 0) {
-      onTimeUp();
-    }
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 0) {
+          clearInterval(timer);
+          setTimerActive(false);
+          setShowModal(true);
+          onTimeUp();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 100);
 
     return () => clearInterval(timer);
-  }, [timeLeft, onTimeUp]);
+  }, [timerActive, onTimeUp]);
 
-  const handleShowAnswer = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setTimeLeft(initialTime); 
-    onNextTrack();
+  const handleNextTrack = () => {
+    if (isHost) {
+      onNextTrack();
+      setShowModal(false);
+    }
   };
 
   return (
@@ -52,7 +60,7 @@ const TimerButton: React.FC<TimerButtonProps> = ({
       <Button
         className="bg-red-600 text-white"
         disabled={timeLeft > 0}
-        onClick={handleShowAnswer}
+        onClick={() => setShowModal(true)}
       >
         Réponse
       </Button>
@@ -62,12 +70,17 @@ const TimerButton: React.FC<TimerButtonProps> = ({
 
       {showModal && createPortal(
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white text-black p-6 rounded-lg">
-            <h2 className="text-xl mb-4">Perdu !</h2>
+          <div className="bg-zinc-800 text-white p-6 rounded-lg">
+            <h2 className="text-xl mb-4">Temps écoulé !</h2>
             <p>La musique était : {answer}</p>
-            <Button className="mt-4 bg-violet-600 hover:bg-violet-700" onClick={handleCloseModal}>
-              Suivant
-            </Button>
+            {isHost && (
+              <Button 
+                className="mt-4 bg-violet-600 hover:bg-violet-700" 
+                onClick={handleNextTrack}
+              >
+                Musique suivante
+              </Button>
+            )}
           </div>
         </div>,
         document.body
