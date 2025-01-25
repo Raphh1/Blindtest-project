@@ -1,4 +1,3 @@
-// app/lib/firebase/auth.ts
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 
 const auth = getAuth();

@@ -22,7 +22,6 @@ export default function LoginPage() {
 
   const handleGoogleLogin = async () => {
     await signInWithGoogle();
-    // La redirection se fera automatiquement via le useEffect quand user sera disponible
   };
 
   return (

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://87.106.162.205:5002/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export async function fetchPlaylistByGenre(genre: string) {
   const response = await fetch(`${API_BASE_URL}/playlist/${genre}`);

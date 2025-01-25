@@ -1,4 +1,3 @@
-// app/(auth)/signup/page.tsx
 "use client";
 
 import {  useEffect } from "react";
@@ -12,7 +11,6 @@ export default function SignupPage() {
   const { user } = useAuth();
   const router = useRouter();
 
-  // Utilise useEffect pour rediriger après le rendu
   useEffect(() => {
     if (user) {
       router.push("/");
@@ -21,7 +19,6 @@ export default function SignupPage() {
 
   const handleGoogleSignup = async () => {
     await signInWithGoogle();
-    // Une fois connecté, le useEffect va se déclencher et rediriger
   };
 
   return (
@@ -33,12 +30,6 @@ export default function SignupPage() {
       <Link href="/login" className="text-purple-400 underline mb-4">
         Déjà un compte ? Connecte-toi
       </Link>
-      {user && (
-        <div className="flex flex-col items-center">
-          <Image  src={user.photoURL || "/default-profile.png"} alt="Photo de profil" className="w-24 h-24 rounded-full mb-4" />
-          <p className="text-white">{user.displayName || "Utilisateur"}</p>
-        </div>
-      )}
     </div>
   );
 }
