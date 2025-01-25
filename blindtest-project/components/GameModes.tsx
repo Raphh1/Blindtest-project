@@ -46,7 +46,7 @@ export function GameModes() {
   };
 
   return (
-    <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto p-6">
+    <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto p-6 mb-24">
       <Card className="bg-zinc-900 border-violet-500/20 hover:border-violet-500/50 transition-all duration-300">
         <CardHeader>
           <CardTitle className="text-violet-300 flex items-center gap-2">

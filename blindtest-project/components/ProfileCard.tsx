@@ -2,7 +2,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Pencil } from "lucide-react";
-import { ProfileCardProps } from "@/app/types";
+
+interface ProfileCardProps {
+  displayName: string;
+  email: string;
+  isEditing: boolean;
+  onEdit: () => void;
+  onNameChange: (value: string) => void;
+  onSave: () => void;
+  onDelete: () => void;
+  errorMessage?: string;
+}
 
 export function ProfileCard({
   displayName,
@@ -11,6 +21,7 @@ export function ProfileCard({
   onEdit,
   onNameChange,
   onSave,
+  onDelete,
   errorMessage
 }: ProfileCardProps) {
   return (
@@ -36,11 +47,11 @@ export function ProfileCard({
             <Input
               value={displayName}
               onChange={(e) => onNameChange(e.target.value)}
-              className="max-w-[250px] bg-zinc-700/50 border-violet-500/20 text-center"
+              className="max-w-[250px] bg-zinc-700/50 border-violet-500/20 text-center text-white"
               placeholder="Votre nom"
             />
           ) : (
-            <h2 className="text-2xl font-semibold text-white">{displayName}</h2>
+            <h2 className="text-2xl font-semibold text-white">{displayName || "Utilisateur"}</h2>
           )}
           <p className="text-zinc-400">{email}</p>
         </div>
@@ -49,14 +60,27 @@ export function ProfileCard({
           <p className="text-center text-red-500 text-sm">{errorMessage}</p>
         )}
 
-        {isEditing && (
-          <Button 
-            onClick={onSave}
-            className="w-full bg-violet-600 hover:bg-violet-700"
-          >
-            Enregistrer les modifications
-          </Button>
-        )}
+              <div className="flex flex-col gap-4">
+                {isEditing && (
+                  <Button 
+                    onClick={onSave}
+                    variant="outline"
+                    size="lg"
+                    className="w-full py-6 text-lg bg-zinc-700/50 border-violet-500/20 hover:bg-violet-600/20 hover:border-violet-500/40 transition-all duration-300 text-white hover:text-white"
+                  >
+                    Enregistrer les modifications
+                  </Button>
+                )}
+                
+                <Button 
+                  onClick={onDelete}
+                  variant="outline"
+                  size="sm"
+                  className="w-[200px] mx-auto bg-zinc-700/50 border-red-500/20 hover:bg-red-600/20 hover:border-red-500/40 text-red-400 hover:text-red-300 transition-all duration-300"
+                >
+                  Supprimer le compte
+                </Button>
+              </div>
       </CardContent>
     </Card>
   );

@@ -1,11 +1,13 @@
 "use client";
 
-import {  useEffect } from "react";
+import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signInWithGoogle } from "@/app/lib/firebase/auth";
+import { FcGoogle } from 'react-icons/fc';
 
 export default function SignupPage() {
   const { user } = useAuth();
@@ -22,14 +24,40 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-3xl mb-8">Inscription</h1>
-      <Button onClick={handleGoogleSignup} className="mb-4">
-        S&apos;inscrire avec Google
-      </Button>
-      <Link href="/login" className="text-purple-400 underline mb-4">
-        Déjà un compte ? Connecte-toi
-      </Link>
+    <div className="min-h-screen bg-zinc-900 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md bg-zinc-800/50 border-violet-500/20">
+        <CardHeader className="space-y-6 text-center pb-8">
+          <div className="space-y-2">
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-violet-600 bg-clip-text text-transparent">
+              Créer un compte BlindGame
+            </CardTitle>
+            <CardDescription className="text-zinc-400 text-lg">
+              Inscrivez-vous pour commencer à jouer
+            </CardDescription>
+          </div>
+        </CardHeader>
+        
+        <CardContent className="space-y-6">
+          <Button 
+            onClick={handleGoogleSignup} 
+            variant="outline"
+            size="lg"
+            className="w-full py-6 text-lg bg-zinc-700/50 border-violet-500/20 hover:bg-violet-600/20 hover:border-violet-500/40 transition-all duration-300 group text-white hover:text-white"
+          >
+            <FcGoogle className="w-6 h-6 mr-4 group-hover:scale-110 transition-transform" />
+            S&apos;inscrire avec Google
+          </Button>
+          
+          <div className="text-center">
+            <Link 
+              href="/login" 
+              className="text-violet-400 hover:text-violet-300 transition-colors text-sm"
+            >
+              Déjà un compte ? Connectez-vous
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

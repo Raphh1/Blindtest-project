@@ -31,19 +31,18 @@ export default function ProfilePage() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="flex items-center justify-center min-h-[calc(100vh-4rem)] p-4">
         <ProfileCard
           displayName={profile.displayName}
           email={user.email || ""}
-          photoURL={profile.previewPhoto || user.photoURL}
           isEditing={isEditing}
           onEdit={() => setIsEditing(!isEditing)}
-          onPhotoChange={profile.handlePhotoChange}
           onNameChange={profile.setDisplayName}
           onSave={() => {
             profile.handleUpdateProfile();
             setIsEditing(false);
           }}
+          onDelete={profile.handleDeleteAccount}
           errorMessage={profile.errorMessage}
         />
       </main>

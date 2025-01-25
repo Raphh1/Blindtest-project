@@ -39,7 +39,7 @@ const TimerButton: React.FC<TimerButtonProps> = ({
         }
         return prev - 1;
       });
-    }, 10);
+    }, 1000);
 
     return () => clearInterval(timer);
   }, [timerActive, onTimeUp]);
@@ -60,7 +60,7 @@ const TimerButton: React.FC<TimerButtonProps> = ({
       >
         Réponse
       </Button>
-      <div className="text-lg">
+      <div className="text-lg text-white">
         {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, '0')}
       </div>
 

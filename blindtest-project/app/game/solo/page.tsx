@@ -8,6 +8,7 @@ import { GenreSelector } from "@/components/GenreSelector";
 import { useSoloGame } from "@/app/hooks/useSoloGame";
 import { useForm } from "react-hook-form";
 
+
 export default function SoloPage() {
   const { user } = useAuth();
   const form = useForm({
@@ -21,34 +22,47 @@ export default function SoloPage() {
   const { selectedGenre, handleGenreSelect, handleSubmit } = useSoloGame(user);
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-white p-6">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-zinc-900 text-white p-24">
+      <div className="max-w-7xl mx-auto">
         <Card className="bg-zinc-900 border-violet-500/20">
-          <CardHeader>
-            <CardTitle className="text-violet-300">Mode Solo</CardTitle>
-            <CardDescription className="text-zinc-400">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-violet-600 bg-clip-text text-transparent">
+              Mode Solo
+            </CardTitle>
+            <CardDescription className="text-zinc-400 text-lg">
               Configurez votre partie solo
             </CardDescription>
           </CardHeader>
+          
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-                <Card className="bg-zinc-800 border-violet-500/20">
-                  <CardHeader>
-                    <CardTitle className="text-violet-300 text-lg">
-                      Pseudos des joueurs
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <PlayerForm user={user} form={form} />
-                  </CardContent>
-                </Card>
-
-                <GenreSelector 
-                  selectedGenre={selectedGenre} 
-                  onGenreSelect={handleGenreSelect} 
-                />
-
+              <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                  <Card className="bg-zinc-800/50 border-violet-500/20">
+                    <CardHeader>
+                      <CardTitle className="text-violet-300 text-xl">
+                        Pseudos des joueurs
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <PlayerForm user={user} form={form} />
+                    </CardContent>
+                  </Card>
+  
+                  <Card className="bg-zinc-800/50 border-violet-500/20">
+                    <CardHeader>
+                      <CardTitle className="text-violet-300 text-xl">
+                        Genre musical
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <GenreSelector 
+                        selectedGenre={selectedGenre} 
+                        onGenreSelect={handleGenreSelect} 
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
               </form>
             </Form>
           </CardContent>

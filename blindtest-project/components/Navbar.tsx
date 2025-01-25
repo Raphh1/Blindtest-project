@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { logout } from "@/app/lib/firebase/auth";
 import { useRouter } from "next/navigation";
-import { LogOut } from "lucide-react";
+import { LogOut, User  } from "lucide-react";
 
 export function Navbar() {
   const { user, loading } = useAuth();
@@ -32,7 +32,7 @@ export function Navbar() {
         {user && (
           <>
             <Link href="/profile" className="text-zinc-400 hover:text-white transition-colors">
-              Profil
+            <User className="h-6 w-6" />
             </Link>
             <button 
               onClick={handleLogout}

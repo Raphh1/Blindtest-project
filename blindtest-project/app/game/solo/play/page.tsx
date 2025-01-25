@@ -6,6 +6,9 @@ import { fetchPlaylistByGenre } from "@/app/lib/api";
 import { Input } from "@/components/ui/input";
 import TimerButton from "@/components/TimerButton";
 import { Track} from "@/app/types";
+import { Card, CardContent , CardHeader, CardTitle } from "@/components/ui/card";
+import { Crown, User } from "lucide-react";
+
 
 interface GameState {
   players: string[];
@@ -87,27 +90,94 @@ export default function PlaySoloGame() {
 
   const currentTrack = gameState.tracks[gameState.currentTrackIndex];
 
-  return (
-    <div className="flex flex-col items-center min-h-screen bg-zinc-900 text-white p-6 gap-4">
-      <div className="flex flex-col items-center w-full max-w-2xl">
-        <img src={currentTrack.cover} alt="Cover" className="w-48 h-48 mb-4" />
-        <audio src={currentTrack.preview} controls className="mb-4" />
-        <TimerButton 
-          initialTime={90} 
-          onTimeUp={handleTimeUp} 
-          answer={currentTrack.title} 
-          onNextTrack={handleNextTrack}
-          currentTrackIndex={gameState.currentTrackIndex} 
-        />
-        <Input
-          value={guess}
-          onChange={(e) => setGuess(e.target.value)}
-          onKeyDown={handleCheck}
-          placeholder="Saisissez le nom du titre"
-          className="bg-zinc-700 border-violet-500/20 text-white w-full mb-4"
-        />
-        <div className="mb-4">{message}</div>
+return (
+  <div className="min-h-screen bg-zinc-900 p-6 pt-12">
+    <div className="container mx-auto grid grid-cols-12 gap-6">
+      <div className="col-span-3 space-y-6">
+        <Card className="bg-zinc-800/50 border-violet-500/20">
+          <CardHeader>
+            <CardTitle className="text-xl text-violet-300">
+              Joueurs en partie
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {gameState.players.map((player, index) => (
+              <div 
+                key={index}
+                className="flex items-center gap-3 p-3 rounded-lg bg-zinc-700/30 border border-violet-500/10"
+              >
+                {index === 0 ? (
+                  <Crown className="w-5 h-5 text-violet-400" />
+                ) : (
+                  <User className="w-5 h-5 text-zinc-400" />
+                )}
+                <span className="text-zinc-100">{player}</span>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <div className="flex justify-center">
+          <TimerButton 
+            initialTime={90} 
+            onTimeUp={handleTimeUp} 
+            answer={currentTrack.title} 
+            onNextTrack={handleNextTrack}
+            currentTrackIndex={gameState.currentTrackIndex}
+            className="text-white"
+          />
+        </div>
+      </div>
+
+      <div className="col-span-9">
+        <Card className="bg-zinc-800/50 border-violet-500/20">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold text-center bg-gradient-to-r from-violet-400 to-violet-600 bg-clip-text text-transparent">
+              En cours de lecture
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-8 space-y-12">
+            <div className="flex justify-center">
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-violet-400 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300"></div>
+                <div className="relative aspect-square w-80 rounded-lg overflow-hidden">
+                  <img 
+                    src={currentTrack.cover} 
+                    alt="Cover" 
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition duration-300" 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <audio 
+              src={currentTrack.preview} 
+              controls 
+              className="w-full max-w-xl mx-auto" 
+            />
+
+            <div className="flex flex-col items-center gap-4">
+              <Input
+                value={guess}
+                onChange={(e) => setGuess(e.target.value)}
+                onKeyDown={handleCheck}
+                placeholder="Saisissez le nom du titre"
+                className="w-full max-w-md py-6 text-lg bg-zinc-700/50 border-violet-500/20 hover:border-violet-500/40 transition-colors text-center"
+              />
+              {message && (
+                <div className={`text-center text-xl font-medium px-6 py-3 rounded-lg ${
+                  message.includes("Bravo") 
+                    ? "bg-green-500/20 text-green-400 border border-green-500/20" 
+                    : "bg-red-500/20 text-red-400 border border-red-500/20"
+                }`}>
+                  {message}
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
-  );
+  </div>
+);
 }
