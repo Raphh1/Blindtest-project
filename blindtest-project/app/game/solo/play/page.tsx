@@ -5,14 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { fetchPlaylistByGenre } from "@/app/lib/api";
 import { Input } from "@/components/ui/input";
 import TimerButton from "@/components/TimerButton";
-
-interface Track {
-  id: number;
-  title: string;
-  artist: string;
-  preview: string;
-  cover: string;
-}
+import { Track} from "@/app/types";
 
 interface GameState {
   players: string[];

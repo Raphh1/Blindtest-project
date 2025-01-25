@@ -1,14 +1,5 @@
 import React from 'react';
-
-interface Player {
-  id: string;
-  name: string;
-}
-
-interface PlayerListProps {
-  players: Player[];
-  hostId: string;
-}
+import { PlayerListProps } from "@/app/types";
 
 const PlayerList: React.FC<PlayerListProps> = ({ players, hostId }) => {
   return (

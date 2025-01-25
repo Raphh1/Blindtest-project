@@ -1,28 +1,14 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Pencil } from "lucide-react";
-
-interface ProfileCardProps {
-  displayName: string;
-  email: string;
-  photoURL: string | null;
-  isEditing: boolean;
-  onEdit: () => void;
-  onPhotoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onNameChange: (value: string) => void;
-  onSave: () => void;
-  errorMessage?: string;
-}
+import { ProfileCardProps } from "@/app/types";
 
 export function ProfileCard({
   displayName,
   email,
-  photoURL,
   isEditing,
   onEdit,
-  onPhotoChange,
   onNameChange,
   onSave,
   errorMessage
@@ -46,30 +32,6 @@ export function ProfileCard({
 
       <CardContent className="space-y-6">
         <div className="flex flex-col items-center space-y-4">
-          <div className="relative">
-            <Avatar className="h-24 w-24">
-              <AvatarImage src={photoURL || undefined} />
-              <AvatarFallback className="bg-violet-600/20 text-violet-300 text-xl">
-                {displayName[0]?.toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            {isEditing && (
-              <label 
-                className="absolute bottom-0 right-0 p-2 bg-violet-600 rounded-full cursor-pointer hover:bg-violet-500 transition-colors"
-                htmlFor="photo-upload"
-              >
-                <input
-                  id="photo-upload"
-                  type="file"
-                  className="hidden"
-                  accept="image/*"
-                  onChange={onPhotoChange}
-                />
-                <Pencil className="h-4 w-4 text-white" />
-              </label>
-            )}
-          </div>
-
           {isEditing ? (
             <Input
               value={displayName}

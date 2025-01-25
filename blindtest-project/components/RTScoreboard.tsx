@@ -1,17 +1,7 @@
 import React from 'react';
-
-interface Player {
-  id: string;
-  name: string;
-  score: number;
-}
-
-interface ScoreBoardProps {
-  players: Player[];
-}
+import { ScoreBoardProps } from "@/app/types";
 
 const ScoreBoard: React.FC<ScoreBoardProps> = ({ players }) => {
-  // Trier les joueurs par score décroissant
   const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
 
   return (

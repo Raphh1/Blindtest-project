@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
-
-interface TimerButtonProps {
-  initialTime: number;
-  onTimeUp: () => void;
-  answer: string;
-  onNextTrack: () => void;
-  currentTrackIndex: number;
-  isHost: boolean; // Ajout d'une prop pour vérifier si c'est l'hôte
-}
+import { TimerButtonProps } from "@/app/types";
 
 const TimerButton: React.FC<TimerButtonProps> = ({
   initialTime,
@@ -38,18 +30,22 @@ const TimerButton: React.FC<TimerButtonProps> = ({
           clearInterval(timer);
           setTimerActive(false);
           setShowModal(true);
-          onTimeUp();
+          if (onTimeUp) {
+            setTimeout(() => {
+              onTimeUp();
+            }, 0);
+          }
           return 0;
         }
         return prev - 1;
       });
-    }, 100);
+    }, 10);
 
     return () => clearInterval(timer);
   }, [timerActive, onTimeUp]);
 
   const handleNextTrack = () => {
-    if (isHost) {
+    if (isHost === undefined || isHost) {
       onNextTrack();
       setShowModal(false);
     }
@@ -73,7 +69,7 @@ const TimerButton: React.FC<TimerButtonProps> = ({
           <div className="bg-zinc-800 text-white p-6 rounded-lg">
             <h2 className="text-xl mb-4">Temps écoulé !</h2>
             <p>La musique était : {answer}</p>
-            {isHost && (
+            {(isHost === undefined || isHost) && (
               <Button 
                 className="mt-4 bg-violet-600 hover:bg-violet-700" 
                 onClick={handleNextTrack}
