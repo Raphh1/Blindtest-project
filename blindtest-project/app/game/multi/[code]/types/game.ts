@@ -2,17 +2,14 @@ import { ReactNode } from 'react';
 import { User } from 'firebase/auth';
 import { UseFormReturn } from "react-hook-form";
 
-export interface GameData {
-  code: string;
-  players: Player[];
-  isOpen: boolean;
-  host: string;
-  genre?: string;
-  isPlaying: boolean;
-  canGuess: boolean;
+// Interfaces de base
+export interface BaseGameProps {
   currentTrackIndex: number;
+  onTimeUp: () => void;
+  onNextTrack: () => void;
 }
 
+// Interfaces métier
 export interface Player {
   id: string;
   name: string;
@@ -27,44 +24,42 @@ export interface Track {
   cover: string;
 }
 
-export interface GameContentProps {
-  game: GameData;
-  tracks: Track[];
+export interface GameData {
+  code: string;
+  players: Player[];
+  isOpen: boolean;
+  host: string;
+  genre?: string;
+  isPlaying: boolean;
+  canGuess: boolean;
   currentTrackIndex: number;
-  guess: string;
-  setGuess: (value: string) => void;
-  handleGuess: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  handleGenreSelect: (genre: string) => void;
-  isHost: boolean;
-  message: string | null;
-  onTimeUp: () => void;
-  onNextTrack: () => void;
 }
 
-export interface GamePlayProps {
+// Props des composants
+export interface GamePlayProps extends BaseGameProps {
   track: Track;
   guess: string;
   setGuess: (value: string) => void;
   handleGuess: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   message: string | null;
   isHost: boolean;
-  currentTrackIndex: number;
-  onTimeUp: () => void;
-  onNextTrack: () => void;
+}
+
+export interface GameContentProps extends GamePlayProps {
+  game: GameData;
+  tracks: Track[];
+  handleGenreSelect: (genre: string) => void;
+}
+
+export interface TimerButtonProps extends BaseGameProps {
+  initialTime: number;
+  answer: string;
+  isHost?: boolean;
 }
 
 export interface GenreSelectorProps {
   selectedGenre: string;
   onGenreSelect: (genre: string) => void;
-}
-
-export interface TimerButtonProps {
-  initialTime: number;
-  onTimeUp: () => void;
-  answer: string;
-  onNextTrack: () => void;
-  currentTrackIndex: number;
-  isHost: boolean;
 }
 
 export interface PlayersSidebarProps {
@@ -83,46 +78,18 @@ export interface PlayerFormData {
   player4?: string;
 }
 
-export interface AuthContextType {
-  user: User | null;
-  loading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
-  signOut: () => Promise<void>;
-}
-
-export interface AuthProviderProps {
-  children: ReactNode;
-}
-
-export interface ErrorViewProps {
-  error: string;
-}
-
-export interface ProfileCardProps {
-  displayName: string;
-  email: string;
-  photoURL: string | null;
-  isEditing: boolean;
-  onEdit: () => void;
-  onPhotoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onNameChange: (value: string) => void;
-  onSave: () => void;
-  errorMessage?: string;
-}
-
 export interface PlayerFormProps {
   user: User | null;
   form: UseFormReturn<PlayerFormData>;
 }
 
-export interface ScoreBoardProps {
-  players: Player[];
+export interface AuthContextType {
+  user: User | null;
+  loading: boolean;
 }
 
-export interface PlayerListProps {
-  players: Player[];
-  hostId: string;
+export interface AuthProviderProps {
+  children: ReactNode;
 }
 
 export interface GameCodeProps {
