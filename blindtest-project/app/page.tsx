@@ -26,7 +26,7 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen bg-zinc-900">
       <Navbar />
-      <div className="absolute top-20 right-20 bg-zinc-800 p-4 rounded-lg shadow-lg max-w-xs w-full">
+      <div className="absolute top-20 right-20 bg-zinc-800  p-4 rounded-lg shadow-lg max-w-xs w-full">
         <h3 className="text-lg font-bold text-white mb-2">Scoreboard en local</h3>
         <Scoreboard globalScores={globalScores} />
       </div>
