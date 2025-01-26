@@ -57,7 +57,18 @@ export default function MultiGamePage() {
     <div className="min-h-screen bg-zinc-900 p-6">
       <GameCode code={game.code} />
       <div className="container mx-auto grid grid-cols-12 gap-6 mt-16">
-        <PlayersSidebar players={game.players} host={game.host} />
+        <div className="col-span-3 space-y-6">
+          <PlayersSidebar 
+            players={game.players} 
+            host={game.host}
+            isHost={isHost}
+            onClose={handleCloseGame}
+          />
+          <ActionsSidebar 
+            isHost={isHost}
+            onClose={handleCloseGame}
+          />
+        </div>
         <GameContent 
           game={game}
           tracks={tracks}
@@ -70,10 +81,6 @@ export default function MultiGamePage() {
           message={message}
           onTimeUp={handleTimeUp}
           onNextTrack={handleNextTrack}
-        />
-        <ActionsSidebar 
-          isHost={isHost}
-          onClose={handleCloseGame}
         />
       </div>
     </div>

@@ -4,10 +4,9 @@ import { useAuth } from "@/app/providers/AuthProvider";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { PlayerForm } from "@/components/PlayerForm";
-import { GenreSelector } from "@/components/GenreSelector";
+import { GenreSelector } from "@/components/GenreSelector"; 
 import { useSoloGame } from "@/app/hooks/useSoloGame";
 import { useForm } from "react-hook-form";
-
 
 export default function SoloPage() {
   const { user } = useAuth();

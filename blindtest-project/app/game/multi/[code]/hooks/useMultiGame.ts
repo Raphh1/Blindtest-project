@@ -35,22 +35,18 @@ export function useMultiGame(user: User | null) {
     socket.on("connect", () => {
       console.log("Socket connected");
       socket?.emit('authenticate', { uid: user.uid });
-
+      
       if (code === "new") {
-        const createGamePayload = { 
+        socket?.emit("createGame", { 
           playerName: user.displayName, 
           uid: user.uid 
-        };
-
-        socket?.emit("createGame", createGamePayload);
+        });
       } else {
-        const joinGamePayload = {
+        socket?.emit("joinGame", {
           code,
           playerName: user.displayName,
           uid: user.uid
-        };
-
-        socket?.emit("joinGame", joinGamePayload);
+        });
       }
     });
 
@@ -63,8 +59,10 @@ export function useMultiGame(user: User | null) {
       console.log("Game updated:", updatedGame);
       setGame(updatedGame);
       if (updatedGame.genre) {
-        fetchPlaylistByGenre(updatedGame.genre)
-          .then(setTracks)
+        fetchPlaylistByGenre(updatedGame.genre, 3) // Limite de 10 musiques pour le mode multi
+          .then(fetchedTracks => {
+            setTracks(fetchedTracks);
+          })
           .catch(error => {
             console.error("Failed to fetch tracks:", error);
             setError("Erreur lors du chargement de la playlist");
@@ -85,6 +83,10 @@ export function useMultiGame(user: User | null) {
       setGuess("");
     });
 
+    socket.on('gameOver', ({ game: finalGame }) => {
+      router.push(`/game/multi/${finalGame.code}/gameover`);
+    });
+
     socket.on('gameClosed', () => {
       router.push("/");
     });
@@ -100,7 +102,13 @@ export function useMultiGame(user: User | null) {
         socket = null;
       }
     };
-  }, [user, params.code, router]);
+  }, [user, params.code, router, tracks.length]);
+
+  const handleGenreSelect = useCallback((genre: string) => {
+    if (game && user?.uid === game.host) {
+      socket?.emit("selectGenre", { code: game.code, genre });
+    }
+  }, [game, user?.uid]);
 
   const handleGuess = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && tracks[currentTrackIndex] && game?.canGuess) {
@@ -130,12 +138,6 @@ export function useMultiGame(user: User | null) {
     });
   }, [game?.code, currentTrackIndex]);
 
-  const handleGenreSelect = useCallback((genre: string) => {
-    if (game && user?.uid === game.host) {
-      socket?.emit("selectGenre", { code: game.code, genre });
-    }
-  }, [game, user?.uid]);
-
   const handleCloseGame = useCallback(() => {
     if (!game) return;
     socket?.emit("closeGame", { code: game.code });
@@ -150,7 +152,7 @@ export function useMultiGame(user: User | null) {
     guess,
     setGuess,
     handleGuess,
-    handleGenreSelect,
+    handleGenreSelect, // Ajout ici
     handleCloseGame,
     handleTimeUp,
     handleNextTrack,

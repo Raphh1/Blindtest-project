@@ -35,6 +35,8 @@ export interface GameData {
   currentTrackIndex: number;
 }
 
+
+
 // Props des composants
 export interface GamePlayProps extends BaseGameProps {
   track: Track;
@@ -55,6 +57,9 @@ export interface TimerButtonProps extends BaseGameProps {
   initialTime: number;
   answer: string;
   isHost?: boolean;
+  onNextTrack: () => void;
+  currentTrackIndex: number;
+  totalTracks: number;
 }
 
 export interface GenreSelectorProps {
@@ -65,6 +70,8 @@ export interface GenreSelectorProps {
 export interface PlayersSidebarProps {
   players: Player[];
   host: string;
+  isHost: boolean;
+  onClose: () => void;
 }
 
 export interface ActionsSidebarProps {
