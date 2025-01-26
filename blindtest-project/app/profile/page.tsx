@@ -20,14 +20,14 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-zinc-900">
       <header className="sticky top-0 z-50 bg-zinc-900/80 backdrop-blur-sm border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center">
-          <Button
-            variant="ghost"
-            onClick={() => router.back()}
-            className="text-zinc-400 hover:text-white gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Retour
-          </Button>
+        <Button
+              variant="ghost"  
+              onClick={() => router.back()}
+              className="text-zinc-400 hover:text-white hover:bg-transparent transition-colors gap-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Retour
+            </Button>
         </div>
       </header>
 

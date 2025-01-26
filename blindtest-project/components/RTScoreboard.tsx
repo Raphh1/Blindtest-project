@@ -6,8 +6,8 @@ const ScoreBoard: React.FC<ScoreBoardProps> = ({ players }) => {
 
   return (
     <div className="bg-zinc-800 rounded-lg p-6 mb-6">
-      <h2 className="text-xl font-semibold mb-4">Tableau des scores</h2>
-      <div className="space-y-2">
+      <h2 className="text-xl font-semibold mb-4 text-white">Tableau des scores</h2>
+      <div className="space-y-2 text-white">
         {sortedPlayers.map((player, index) => (
           <div 
             key={player.id} 
@@ -16,10 +16,10 @@ const ScoreBoard: React.FC<ScoreBoardProps> = ({ players }) => {
             }`}
           >
             <div className="flex items-center gap-3">
-              <span className="text-lg font-bold">{index + 1}</span>
-              <span>{player.name}</span>
+              <span className="text-lg ">{index + 1}</span>
+              <span className="font-bold">{player.name}</span>
             </div>
-            <span className="text-lg font-bold">{player.score} pts</span>
+            <span className="text-lg ">{player.score} pts</span>
           </div>
         ))}
       </div>

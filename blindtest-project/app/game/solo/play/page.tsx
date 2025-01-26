@@ -38,8 +38,8 @@ export default function PlaySoloGame() {
       const genre = searchParams.get("genre") || "";
 
       try {
-        const tracks = await fetchPlaylistByGenre(genre, 2); // Assurez-vous de passer la limite ici
-        console.log("Fetched tracks:", tracks); // Log pour déboguer
+        const tracks = await fetchPlaylistByGenre(genre, 2); 
+        console.log("Fetched tracks:", tracks); 
         setGameState({
           players,
           genre,

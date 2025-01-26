@@ -94,7 +94,7 @@ export function GameContent({
   onNextTrack,
   isGameOver
 }: GameContentProps) {
-  const genres = ["rap", "rnb", "pop", "jazz"];
+  const genres = ["Rap", "Rnb", "Pop", "Jazz"];
   const router = useRouter();
 
   console.log("isGameOver:", isGameOver, "currentTrackIndex:", currentTrackIndex, "totalTracks:", tracks.length);

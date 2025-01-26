@@ -4,7 +4,6 @@ import { PlayerListProps } from "@/app/types";
 const PlayerList: React.FC<PlayerListProps> = ({ players, hostId }) => {
   return (
     <div className="bg-zinc-800 rounded-lg p-4 mb-4">
-      <h2 className="text-xl font-semibold mb-4">Joueurs connectés</h2>
       <ul className="space-y-2">
         {players.map((player) => (
           <li key={player.id} className="flex items-center gap-2 text-zinc-300">

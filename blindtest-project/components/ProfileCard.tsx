@@ -35,8 +35,8 @@ export function ProfileCard({
           variant="ghost"
           size="icon"
           onClick={onEdit}
-          className="text-zinc-400 hover:text-violet-300"
-        >
+          className="text-zinc-400 hover:text-white hover:bg-transparent transition-colors gap-2"
+          >
           <Pencil className="h-4 w-4" />
         </Button>
       </CardHeader>
