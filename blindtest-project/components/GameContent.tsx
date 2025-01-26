@@ -1,8 +1,12 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { GenreSelector } from "@/components/GenreSelector";
 import TimerButton from "@/components/TimerButton";
 import { GameContentProps, GamePlayProps } from "@/app/types";
+import RTScoreboard from "@/components/RTScoreboard";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export function GamePlay({
   track,
@@ -13,7 +17,8 @@ export function GamePlay({
   isHost,
   currentTrackIndex,
   onTimeUp,
-  onNextTrack
+  onNextTrack,
+  totalTracks
 }: GamePlayProps) {
   return (
     <div className="col-span-9">
@@ -66,6 +71,7 @@ export function GamePlay({
               onNextTrack={onNextTrack}
               currentTrackIndex={currentTrackIndex}
               isHost={isHost}
+              totalTracks={totalTracks}
             />
           </div>
         </CardContent>
@@ -85,9 +91,39 @@ export function GameContent({
   handleGenreSelect,
   message,
   onTimeUp,
-  onNextTrack
+  onNextTrack,
+  isGameOver
 }: GameContentProps) {
   const genres = ["rap", "rnb", "pop", "jazz"];
+  const router = useRouter();
+
+  console.log("isGameOver:", isGameOver, "currentTrackIndex:", currentTrackIndex, "totalTracks:", tracks.length);
+
+  if (isGameOver) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-zinc-900 z-50">
+        <div className="w-full max-w-3xl p-8">
+          <h1 className="text-4xl font-bold text-center text-white mb-8">
+            Fin de la partie !
+          </h1>
+          <RTScoreboard 
+            players={game.players} 
+            className="scale-125 transform-gpu mb-8"
+          />
+          <div className="flex justify-center">
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={() => router.push("/")}
+              className="mt-8 bg-violet-600 hover:bg-violet-700 text-white"
+            >
+              Retour à l'accueil
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isHost && !game.genre) {
     return (
@@ -123,6 +159,8 @@ export function GameContent({
         currentTrackIndex={currentTrackIndex}
         onTimeUp={onTimeUp}
         onNextTrack={onNextTrack}
+        totalTracks={tracks.length}
+        isGameOver={isGameOver} 
       />
     );
   }

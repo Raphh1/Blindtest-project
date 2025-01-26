@@ -51,6 +51,7 @@ export interface GameContentProps extends GamePlayProps {
   game: GameData;
   tracks: Track[];
   handleGenreSelect: (genre: string) => void;
+  isGameOver: boolean;
 }
 
 export interface TimerButtonProps extends BaseGameProps {

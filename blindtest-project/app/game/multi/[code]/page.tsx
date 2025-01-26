@@ -42,7 +42,9 @@ export default function MultiGamePage() {
     handleCloseGame,
     handleTimeUp,
     handleNextTrack,
-    isHost
+    isHost,
+    isGameOver 
+
   } = useMultiGame(user);
 
   if (error) {
@@ -81,6 +83,7 @@ export default function MultiGamePage() {
           message={message}
           onTimeUp={handleTimeUp}
           onNextTrack={handleNextTrack}
+          isGameOver={isGameOver} 
         />
       </div>
     </div>
