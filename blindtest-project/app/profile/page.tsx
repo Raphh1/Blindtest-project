@@ -18,18 +18,18 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-zinc-900">
-      <header className="sticky top-0 z-50 bg-zinc-900/80 backdrop-blur-sm border-b border-zinc-800">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center">
-          <Button
-            variant="ghost"
-            onClick={() => router.back()}
-            className="text-zinc-400 hover:text-white gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Retour
-          </Button>
-        </div>
-      </header>
+  <header className="sticky top-0 z-50 bg-zinc-900/80 backdrop-blur-sm border-b border-zinc-800">
+    <div className="w-full h-16 flex items-center">
+      <Button
+        variant="ghost"
+        onClick={() => router.back()}
+        className="ml-0 text-zinc-400 hover:text-violet-500 hover:bg-violet-200/10 gap-2 transition-colors duration-300"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Retour
+      </Button>
+    </div>
+  </header>
 
       <main className="flex items-center justify-center min-h-[calc(100vh-4rem)] p-4">
         <ProfileCard

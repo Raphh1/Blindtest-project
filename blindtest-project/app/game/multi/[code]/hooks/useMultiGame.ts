@@ -59,7 +59,7 @@ export function useMultiGame(user: User | null) {
       console.log("Game updated:", updatedGame);
       setGame(updatedGame);
       if (updatedGame.genre) {
-        fetchPlaylistByGenre(updatedGame.genre, 3) // Limite de 10 musiques pour le mode multi
+        fetchPlaylistByGenre(updatedGame.genre, 3) 
           .then(fetchedTracks => {
             setTracks(fetchedTracks);
           })

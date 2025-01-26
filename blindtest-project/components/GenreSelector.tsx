@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { GenreSelectorProps } from "@/app/types/game";
 
 export function GenreSelector({
-  genres = ["rap", "rnb", "pop", "jazz"],
+  genres = ["Rap", "Rnb", "Pop", "Jazz"],
   selectedGenre,
   onGenreSelect,
   disabled
