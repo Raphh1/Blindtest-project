@@ -65,7 +65,7 @@ export function GamePlay({
 
           <div className="flex justify-center">
             <TimerButton 
-              initialTime={90} 
+              initialTime={30} 
               onTimeUp={onTimeUp} 
               answer={track.title}
               onNextTrack={onNextTrack}

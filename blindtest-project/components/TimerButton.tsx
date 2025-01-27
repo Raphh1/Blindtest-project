@@ -32,7 +32,7 @@ const TimerButton: React.FC<TimerButtonProps> = ({
         }
         return prev - 1;
       });
-    }, 100);
+    }, 200);
 
     return () => clearInterval(timer);
   }, [timerActive]);

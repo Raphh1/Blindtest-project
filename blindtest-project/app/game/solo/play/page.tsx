@@ -253,7 +253,7 @@ export default function PlaySoloGame() {
 
           <div className="flex justify-center">
             <TimerButton
-              initialTime={5}
+              initialTime={30}
               onTimeUp={handleTimeUp}
               answer={currentTrack?.title || ""}
               onNextTrack={handleNextTrack}

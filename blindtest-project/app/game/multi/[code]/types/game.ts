@@ -22,6 +22,7 @@ export interface Track {
   cover: string;
 }
 
+
 export interface GameData {
   code: string;
   players: Player[];
