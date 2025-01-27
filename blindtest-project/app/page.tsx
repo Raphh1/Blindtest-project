@@ -18,9 +18,13 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen bg-zinc-900 overflow-hidden">
-      <div className="dots absolute inset-0 z-0"></div>
+      <div className="dots absolute inset-0 z-0 pointer-events-none"></div>
 
-      <Navbar />
+      <div className="relative z-20">
+        <Navbar />
+      </div>
+
+      {/* Contenu principal */}
       <div className="relative flex flex-col items-center justify-center h-[calc(100vh-64px)] z-10">
         <h1 className="text-6xl text-center text-white mb-8">BlindGame.io</h1>
         <div className="flex flex-col items-center space-y-2">
