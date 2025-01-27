@@ -57,7 +57,7 @@ export function GamePlay({
               className="w-full max-w-md py-6 text-lg bg-zinc-700/50 border-violet-500/20 hover:border-violet-500/40 transition-colors text-center text-white"
             />
             {message && (
-              <div className="text-red-400 text-lg font-medium">
+              <div className="text-green-400 text-lg font-medium">
                 {message}
               </div>
             )}

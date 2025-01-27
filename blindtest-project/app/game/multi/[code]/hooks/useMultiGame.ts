@@ -71,10 +71,15 @@ export function useMultiGame(user: User | null) {
       }
     });
 
-    socket.on("correctAnswerFound", ({ game: updatedGame, winnerName }) => {
+    socket.on("correctAnswerFound", ({ game: updatedGame, winnerName, trackTitle }) => {
       setGame(updatedGame);
-      setMessage(`${winnerName} a trouvé la réponse !`);
+      setMessage(`${winnerName} a trouvé la réponse ${trackTitle} !`);
       setGuess("");
+      
+      // Effacer le message après 3 secondes
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
     });
 
     socket.on("nextTrack", ({ game: updatedGame, currentTrackIndex }) => {
