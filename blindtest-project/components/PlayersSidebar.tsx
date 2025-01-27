@@ -2,7 +2,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import PlayerList from "@/components/PlayerList";
 import ScoreBoard from "@/components/RTScoreboard";
-import { PlayersSidebarProps } from "@/app/game/multi/[code]/types/game";
+import { PlayersSidebarProps } from "@/app/types";
 
 export function PlayersSidebar({ players, host }: PlayersSidebarProps) {
   return (

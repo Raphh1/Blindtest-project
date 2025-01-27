@@ -2,14 +2,12 @@ import { ReactNode } from 'react';
 import { User } from 'firebase/auth';
 import { UseFormReturn } from "react-hook-form";
 
-// Interfaces de base
 export interface BaseGameProps {
   currentTrackIndex: number;
   onTimeUp: () => void;
   onNextTrack: () => void;
 }
 
-// Interfaces métier
 export interface Player {
   id: string;
   name: string;
