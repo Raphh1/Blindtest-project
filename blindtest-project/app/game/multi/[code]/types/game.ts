@@ -12,6 +12,7 @@ export interface Player {
   id: string;
   name: string;
   score: number;
+  points: number;
 }
 
 export interface Track {
