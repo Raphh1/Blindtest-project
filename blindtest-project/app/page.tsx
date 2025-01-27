@@ -19,7 +19,6 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen bg-zinc-900 overflow-hidden">
       <div className="dots absolute inset-0 z-0 pointer-events-none"></div>
-
       <div className="relative z-20">
         <Navbar />
       </div>

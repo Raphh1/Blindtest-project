@@ -17,15 +17,15 @@ export default function ScoreTable() {
 
   return (
     <div className="mt-6 bg-zinc-800/50 border border-violet-500/20 rounded-lg p-4">
-      <h2 className="text-xl font-bold text-violet-400 mb-4 text-center">
-        Tableau des scores cumulés en local
+      <h2 className="text-xl font-normal text-violet-400 mb-4 text-center">
+        Podium du mode solo
       </h2>
       <div className="max-h-64 overflow-y-scroll scrollbar-thin scrollbar-thumb-violet-500 scrollbar-track-zinc-700">
         <table className="w-full text-left text-white">
           <thead>
             <tr>
-              <th className="py-2 px-4">Joueur</th>
-              <th className="py-2 px-4 text-right">Score</th>
+              <th className="py-2 px-4 font-normal">Liste des joueurs</th>
+              <th className="py-2 px-4 text-right font-normal">Score</th>
             </tr>
           </thead>
           <tbody>
