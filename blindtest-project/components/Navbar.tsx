@@ -1,11 +1,10 @@
-// components/ui/Navbar.tsx
 "use client";
 
 import Link from "next/link";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { logout } from "@/app/lib/firebase/auth";
 import { useRouter } from "next/navigation";
-import { LogOut } from "lucide-react";
+import { LogOut, User  } from "lucide-react";
 
 export function Navbar() {
   const { user, loading } = useAuth();
@@ -32,18 +31,14 @@ export function Navbar() {
       <div className="flex items-center gap-4">
         {user && (
           <>
-    <Link href="/profile">
-              <img
-                src={user.photoURL || "/default-profile.png"}
-                alt="Photo de profil"
-                className="rounded-full w-8 h-8 hover:ring-2 hover:ring-purple-600"
-              />
+            <Link href="/profile" className="text-zinc-400 hover:text-white transition-colors">
+            <User className="h-6 w-6" />
             </Link>
-            <button
+            <button 
               onClick={handleLogout}
-              className="bg-transparent hover:bg-zinc-700 p-2 rounded-full"
+              className="text-zinc-400 hover:text-white transition-colors"
             >
-              <LogOut className="w-6 h-6 text-white" />
+              <LogOut className="h-6 w-6" />
             </button>
           </>
         )}
